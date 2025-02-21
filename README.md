@@ -33,18 +33,18 @@ Hrmaps-PFE/
 ### 🛠 1️⃣ Installation Backend (Spring Boot)  
 #### 🔹 1. Cloner le projet  
 ```bash
-git clone https://github.com/ton-utilisateur/gestion-talents.git
-cd gestion-talents/backend
+git clone https://github.com/ton-utilisateur/HrMaps.git
+cd HrMaps/back
 ```
 #### 🔹 2. Configurer MySQL  
 Créer une base de données MySQL :  
 ```sql
-CREATE DATABASE gestion_talents;
+CREATE DATABASE HrMaps;
 ```
 #### 🔹 3. Configurer `application.properties`  
 Modifier `src/main/resources/application.properties` :  
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/gestion_talents
+spring.datasource.url=jdbc:mysql://localhost:3306/HrMaps
 spring.datasource.username=root
 spring.datasource.password=ton_mdp
 spring.jpa.hibernate.ddl-auto=update
