@@ -28,6 +28,9 @@ export class EmployeComponent implements OnInit {
 
   jobPositions: { [userId: number]: string } = {};
 
+  sortDirection: { [key: string]: boolean } = {};
+  //sortColumn: string = '';
+
 
   constructor(private userService: UserService,private serviceEqserice : ServiceEqService ,private router: Router) {}
 
@@ -115,6 +118,27 @@ export class EmployeComponent implements OnInit {
     this.router.navigate(['/chefdequipe/profile/', id]);
   }
 
+  sortColumn(column: string) {
+    this.sortDirection[column] = !this.sortDirection[column];
+    const direction = this.sortDirection[column] ? 1 : -1;
+
+    this.Users.sort((a, b) => {
+      let aValue = this.getNestedValue(a, column);
+      let bValue = this.getNestedValue(b, column);
+
+      if (aValue < bValue) {
+        return -1 * direction;
+      } else if (aValue > bValue) {
+        return 1 * direction;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  getNestedValue(obj: any, path: string): any {
+    return path.split('.').reduce((value, key) => value && value[key], obj);
+  }
 
  
 

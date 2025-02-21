@@ -84,9 +84,9 @@
                     <h5 class="my-0 text-primary"><i class="mdi mdi-bullseye-arrow mr-3"></i>Poste :</h5>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title mt-0"><h4>{{this.SelcetedPoste.nom ?this.SelcetedPoste.nom:'Aucun poste'}} </h4></h5>
+                    <h5 class="card-title mt-0"><h4>{{this.SelcetedPoste?.nom ?this.SelcetedPoste.nom:'Aucun poste'}} </h4></h5>
                     <div>
-                      <button type="button" class="btn btn-primary" (click)="openModal(content,this.idPoste)">{{this.SelcetedPoste.nom ?'Modifier poste':'Ajouter poste'}}</button>
+                      <button type="button" class="btn btn-primary" (click)="openModal(content,this.idPoste)">{{this.SelcetedPoste?.nom ?'Modifier poste':'Ajouter poste'}}</button>
                       <button *ngIf="this.posteUser?.id" type="button" class="btn btn-danger ms-2" (click)="deleteEvaluationsByUser()">
                         Supprimer poste
                     </button>

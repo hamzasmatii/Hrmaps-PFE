@@ -13,13 +13,13 @@
               <table class="table align-middle  table-nowrap table-hover">
                 <thead class="table-light">
                   <tr>
-                    <th scope="col" style="width: 70px;">#</th>
-                    <th scope="col">Idantifiant</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Service</th>
-                    <th scope="col">Mot de passe</th>
-                    <th scope="col">Poste</th>
+                    <th scope="col" style="width: 70px;" (click)="sortColumn('index')">#</th>
+                    <th scope="col" (click)="sortColumn('identifiantUser')">Idantifiant</th>
+                    <th scope="col" (click)="sortColumn('type')">Type</th>
+                    <th scope="col" (click)="sortColumn('nom')">Nom</th>
+                    <th scope="col" (click)="sortColumn('serviceEq')">Service</th>
+                    <th scope="col" (click)="sortColumn('mdp')">Mot de passe</th>
+                    <th scope="col" (click)="sortColumn('poste')">Poste</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
