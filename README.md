@@ -14,9 +14,9 @@ Cette application permet aux entreprises de gérer les services, postes, employ�
 
 ## 📂 Structure du Projet
 
-gestion-talents/
-│── backend/     --> (Spring Boot - MySQL)
-│── frontend/    --> (Angular)
+Hrmaps-PFE/
+│── back/     --> (Spring Boot - MySQL)
+│── front/    --> (Angular)
 │── README.md    --> (Ce fichier)
 
 
