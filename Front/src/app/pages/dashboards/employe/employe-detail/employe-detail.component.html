@@ -1,0 +1,358 @@
+<div class="container-fluid">
+
+    <app-page-title title="Profile" ></app-page-title>
+  
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card overflow-hidden">
+          <div class="bg-soft bg-primary">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-3">
+                  <h5 class="text-primary">Welcome Back !</h5>
+                  <p>It will seem like simplified</p>
+                </div>
+              </div>
+              <div class="col-5 align-self-end">
+                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="avatar-md profile-user?-wid mb-4">
+                    <span class="avatar-title rounded-circle">
+                        {{ user?.nom?.charAt(0) ?? '' }}
+                    </span>
+                      </div>                
+                <h5 class="font-size-15 text-truncate">{{user?.nom || 'Nom non disponible'}} {{ user?.prenom || 'Aucun prenom' }} </h5>
+                <p class="text-muted mb-0 text-truncate"></p>
+              </div>
+  
+              <div class="col-sm-8">
+                <div class="pt-4">
+  
+                  <div class="row">
+                    <div class="col-6">
+                      <h5 class="font-size-15">{{user?.notePoste||'N/A'}}</h5>
+                      <p class="text-muted mb-0">Note Poste</p>
+                    </div>
+                    <div class="col-6">
+                      <h5 class="font-size-15">$1245</h5>
+                      <p class="text-muted mb-0">Revenue</p>
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <a href="javascript: void(0);" class="btn btn-primary btn-sm">View Profile <i
+                        class="mdi mdi-arrow-right ms-1"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+  
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Information personnelle</h4>
+  
+            <p class="text-muted mb-4">Hi I'm {{ user?.nom || 'Nom non disponible' }} {{ user?.prenom || 'Prénom non disponible' }}, .</p>
+            <div class="table-responsive">
+              <table class="table table-nowrap mb-0">
+                <tbody>
+                  <tr>
+                    <th scope="row"> Nom et Prenom :</th>
+                    <td>{{user?.nom}} {{user?.prenom}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Identifiant :</th>
+                    <td>{{user?.identifiantUser}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mot de passe :</th>
+                    <td>{{user?.mdp}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Service :</th>
+                    <td>{{user?.serviceEq?.nom || 'Aucun service'}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Poste :</th>
+                    <td>{{posteUser?.nom}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Mobile :</th>
+                    <td>{{user?.number}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">E-mail :</th>
+                    <td>{{user?.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Type :</th>
+                    <td>{{user?.type}}</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+  
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-5">Experience</h4>
+            <div class="">
+              <ul class="verti-timeline list-unstyled">
+                <li class="event-list">
+                  <div class="event-timeline-dot">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </div>
+                  <div class="media">
+                    <div class="me-3">
+                      <i class="fas fa-thumbs-up h4 text-primary"></i>
+                    </div>
+                    <div class="media-body">
+                      <div>
+                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Back end Developer</a></h5>
+                        <span class="text-primary">2016 - 19</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="event-list">
+                  <div class="event-timeline-dot">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </div>
+                  <div class="media">
+                    <div class="me-3">
+                      <i class="fas fa-meh h4 text-primary"></i>
+                    </div>
+                    <div class="media-body">
+                      <div>
+                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Front end Developer</a></h5>
+                        <span class="text-primary">2013 - 16</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="event-list">
+                  <div class="event-timeline-dot">
+                    <i class="bx bx-right-arrow-circle"></i>
+                  </div>
+                  <div class="media">
+                    <div class="me-3">
+                      <i class="fas fa-thumbs-down h4 text-primary"></i>
+                    </div>
+                    <div class="media-body">
+                      <div>
+                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">UI /UX Designer</a></h5>
+                        <span class="text-primary">2011 - 13</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+  
+          </div>
+        </div>
+        <!-- end card -->
+
+
+      </div>
+  
+      <div class="col-xl-8">
+
+        
+<div class="card" >
+  <div class="card-body">
+    <h4 class="card-title">Statistique</h4>
+    <p class="card-title-desc">Competance statistique</p>
+    <div class="mb-5">
+      <label for="email" class="form-label">Competance: {{this.selectedCompetanceStat?.nom ? this.selectedCompetanceStat.nom:'N/A'}} </label>
+      <br>
+      <a >
+        Note: 
+        <span [ngClass]="{'danger  class=badge badge-soft-primary font-size-14 m-1': !this.noteCompetenceStat}">
+          ({{ this.noteCompetenceStat || 'N/A' }})
+        </span>
+      </a>
+        <br>
+        <div class="btn-group me-1 mt-2" ngbDropdown>
+          <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>
+            {{ this.selectedCompetanceStat?.nom || "Select une competance " }} <i class="mdi mdi-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            
+            <a *ngFor="let item of competanceNames" class="dropdown-item" (click)="selectCompetenceStat(item)">{{ item.nom }}</a>
+            
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card" *ngIf="this.selectedCompetanceStat.nom">
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-4">
+              <h5 class="mb-0">86541</h5>
+              <p class="text-muted text-truncate">Activated</p>
+            </div>
+            <div class="col-4">
+              <h5 class="mb-0">2541</h5>
+              <p class="text-muted text-truncate">Pending</p>
+            </div>
+            <div class="col-4">
+              <h5 class="mb-0">102030</h5>
+              <p class="text-muted text-truncate">Deactivated</p>
+            </div>
+          </div>
+          <div class="chartjs-chart">
+            <!-- Line Chart -->
+            <canvas baseChart height="300" [datasets]="lineAreaChart.datasets" [labels]="lineAreaChart.labels"
+              [options]="lineAreaChart.options" chartType="line">
+            </canvas>
+          </div>
+        </div>
+      </div>
+  
+  </div>
+  </div>
+</div>
+
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Historique</h4>
+              <p class="card-title-desc">Historique evaluation des competances</p>
+                <div class="mb-5">
+                  <label for="email" class="form-label">Competance: {{this.selectedCompetance?.nom ? this.selectedCompetance.nom:'N/A'}} </label>
+                  <br>
+                  <a >
+                    Note: 
+                    <span [ngClass]="{'danger  class=badge badge-soft-primary font-size-14 m-1': !this.noteCompetence}">
+                      ({{ this.noteCompetence || 'N/A' }})
+                    </span>
+                  </a>
+                    <br>
+                    <div class="btn-group me-1 mt-2" ngbDropdown>
+                      <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>
+                        {{ selectedCompetance?.nom || "Select une competance " }} <i class="mdi mdi-chevron-down"></i>
+                      </button>
+                      <div class="dropdown-menu" ngbDropdownMenu>
+                        
+                        <a *ngFor="let item of competanceNames" class="dropdown-item" (click)="selectCompetence(item)">{{ item.nom }}</a>
+                        
+                      </div>
+                  </div>
+                </div>
+                  
+                    <div class="card" *ngIf="this.selectedCompetance.nom">
+
+                        <div class="card-body">
+                          <h4 class="card-title mb-5">Evaluation</h4>
+                          <div class="" *ngFor="let evaluation of evaluationForuser" >
+                            <ul class="verti-timeline list-unstyled">
+                              <li class="event-list">
+                                <div class="event-timeline-dot">
+                                  <i class="bx bx-right-arrow-circle"></i>
+                                </div>
+                                <div class="media">
+                                  <div class="me-3">
+                                    <i class="fas fa-thumbs-up h4 text-primary" *ngIf="evaluation.eval == typeEvalu.EXCELLENT"></i>
+                                    <i class="fas fa-meh h4 text-primary" *ngIf="evaluation.eval == typeEvalu.SATISFAISANT"></i>
+                                    <i class="fas fa-thumbs-down h4 text-primary" *ngIf="evaluation.eval == typeEvalu.INSATISFAISANT"></i>
+                                  </div>
+                                  <div class="media-body">
+                                    <div>
+                                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">{{evaluation.eval}}({{evaluation.note}})</a></h5>
+                                      <ul class="list-inline font-size-20 contact-links mb-0" *ngIf="role !== 'EMPLOYE'">
+                                        <li class="list-inline-item px-2">
+                                          <button type="button" class="btn btn-success" (click)="openModal(content,selectedCompetance,evaluation.id); $event.stopPropagation();">Modifier</button>
+                                        </li>
+                                        <li class="list-inline-item px-2">
+                                          <button type="button" class="btn btn-danger" (click)="deleteEvaluation(evaluation.id); $event.stopPropagation();">Supprimer</button>
+                                        </li>
+                                      </ul>
+                                      <span class="text-primary">{{ evaluation.dateEvalu | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              
+                            </ul>
+                          </div>
+                
+                        </div>
+                        <div class="d-grid gap-2" *ngIf="role !== 'EMPLOYE'">
+                          <button type="button" class="btn btn-primary btn-lg" (click)="openModal(content,selectedCompetance,null)">Ajouter evaluation {{selectedCompetance.nom}}</button>
+                      </div>
+                      </div>
+                     
+                  <ng-template #content role="document" let-modal>
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0">Evaluation {{ selectedCompetance.nom }}</h5>
+                        <button type="button" class="btn-close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form (ngSubmit)="onSubmit()">
+                            <div class="row text-center d-flex justify-content-start align-items-center">
+                                <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                                    <div class="p-3">
+                                        <i class="fas fa-thumbs-up h4 text-primary icon-adjust"></i>
+                                        <div class="form-check d-flex flex-column align-items-center">
+                                            <input class="form-check-input mt-2" type="radio" name="formRadios" id="formRadios1" [(ngModel)]="selectedEvaluation" value="EXCELLENT">
+                                            <label class="form-check-label mt-1" for="formRadios1">
+                                                EXCELLENT
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                                    <div class="p-3">
+                                        <i class="fas fa-meh h4 text-primary icon-adjust"></i>
+                                        <div class="form-check d-flex flex-column align-items-center">
+                                            <input class="form-check-input mt-2" type="radio" name="formRadios" id="formRadios2" [(ngModel)]="selectedEvaluation" value="SATISFAISANT">
+                                            <label class="form-check-label mt-1" for="formRadios2">
+                                                SATISFAISANT
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                                    <div class="p-3">
+                                        <i class="fas fa-thumbs-down h4 text-primary icon-adjust"></i>
+                                        <div class="form-check d-flex flex-column align-items-center">
+                                            <input class="form-check-input mt-2" type="radio" name="formRadios" id="formRadios3" [(ngModel)]="selectedEvaluation" value="INSATISFAISANT">
+                                            <label class="form-check-label mt-1" for="formRadios3">
+                                                INSATISFAISANT
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="text-end mt-3">
+                                <button type="submit" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+                
+              
+            </div>
+          </div>
+
+          
+      </div>
+    </div>
+    <!-- end row -->
+
+   
+  
+  
+  

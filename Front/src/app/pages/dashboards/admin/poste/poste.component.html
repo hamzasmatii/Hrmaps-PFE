@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <app-page-title title="Advanced Table" ></app-page-title>
+    <div class="row">
+      <div class="d-flex">
+        <button class="btn btn-success ms-auto mb-2" (click)="openModal(content,null)" >Ajouter Poste </button>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          
+          <div class="card-body">
+            <h4 class="card-title">PosteTable</h4>
+            <p class="card-sub-title">
+            </p>
+            <div class="row mb-md-2">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"><label
+                    class="d-inline-flex align-items-center">Show
+                    <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                      [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select> entries</label></div>
+              </div>
+              <!-- Search -->
+               
+              <div class="col-sm-12 col-md-6">
+                
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                    class="d-inline-flex align-items-center">Search:
+                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                      aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+              </div>
+              <!-- End search -->
+               
+            </div>
+            <!-- Table -->
+            <div class="table-responsive">
+              <table id="basic-datatable"
+                class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th sortable="nom" (sort)="onSort($event)">Nom</th>
+                    <th sortable="chefEquipe" >Description</th>
+                    
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let table of tables$ | async; let i = index">
+                  <tr  class="pointer">
+                    <td align="center"  >
+                      <a class="expand-row" (click)="changeValue(i)">+</a>
+                    </td>
+                    
+                    <td >
+                      <ngb-highlight [result]="table?.nom || 'N/A'" [term]="service.searchTerm"  (click)="posteDetails(table.id)" ></ngb-highlight>
+                    </td>
+                 
+                    <td>
+                      <ngb-highlight [result]="table?.description || 'N/A'" ></ngb-highlight>
+                    </td>
+                    <td>
+                      <div ngbDropdown placement="bottom-left">
+                        <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle></i>
+                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <a class="dropdown-item" href="javascript: void(0);" (click)="openModal(content, table.id)" >
+                            <i class="mdi mdi-plus"></i>Modifier
+                        </a>       
+                        <a class="dropdown-item" href="javascript: void(0);" (click)="deletePoste(table.id)">
+                          <i class="mdi mdi-account-edit"></i>Supprimer
+                      </a>                     
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                
+                  <tr *ngIf="!hideme[i]" class="sub-table no-bg">
+                    <td align="center"></td>
+                    <td colspan="15" class="p-0">
+                      <table class="table mb-0 table-striped">
+                        <thead class="bg-dark text-white">
+                          <tr>
+                            <th (click)="onSortemp('nom')">Nom</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                         
+                          <tr *ngFor="let competence of sortedCompetances(table?.competencesRequises || [])"  class="pointer">
+                            <td>{{competence.nom}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+                
+              </table>
+            </div>
+            <!-- End table -->
+            <div class="row justify-content-md-between align-items-md-center mt-2">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Showing
+                  {{service.startIndex}} to
+                  {{service.endIndex}} of {{service.totalRecords}}
+                  entries
+                </div>
+              </div>
+              <!-- Pagination -->
+              <div class="col-sm-12 col-md-5">
+                <div class="text-md-right float-md-end pagination-rounded">
+                  <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+                  </ngb-pagination>
+                </div>
+              </div>
+              <!-- End Pagination -->
+            </div>
+          </div>
+        </div>
+  
+      
+      </div>
+    </div>
+  </div>
+
+     <!-- Modal Open -->
+     <!-- Modal Open -->
+ <!-- Modal Open -->
+ <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Poste</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form  (ngSubmit)="SubmitPoste()">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom poste</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="poste.nom" name="posteNom" placeholder="Enter Nom">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Description</label>
+                <textarea class="form-control" id="subject" [(ngModel)]="poste.description" name="posteDescription" rows="3"></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="mb-3" [formGroup]="competanceData">
+                  <div formArrayName="competanceValue">
+                    <label class="form-label">Competance no :</label>
+                    <div class="inner mb-3 row" *ngFor="let data1 of  competancedata().controls; let i=index;"
+                      [formGroupName]="i">
+                      <div class="col-md-10 col-8">
+                        <input type="text" class="inner form-control" id="nomcompetance"  formControlName="competanceNom"
+                          placeholder="Enter your competance name">
+                      </div>
+                      <div class="col-md-2 col-4">
+                        <input type="hidden" formControlName="id">
+                        <div class="d-grid">
+                          <input type="button" class="btn btn-primary inner" value="Delete" (click)="deleteCompetance(i,competancedata().at(i).get('id')?.value)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <input type="button" class="btn btn-success inner" value="Ajouter Competance" (click)="addCompetance()">
+              </div>
+              
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+
+
+

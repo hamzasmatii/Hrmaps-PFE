@@ -1,0 +1,64 @@
+<!-- Right Sidebar -->
+
+<div class="right-bar" (clickOutside)="hide()" [exclude]="'.right-bar-toggle'">
+
+  <ngx-simplebar class="h-100">
+    <div class="rightbar-title px-3 py-4">
+      <a href="javascript:void(0);" class="right-bar-toggle float-end" (click)="hide();">
+        <i class="mdi mdi-close noti-icon"></i>
+      </a>
+      <h5 class="m-0">Paramètres</h5>
+
+
+
+      <h6 class="mt-4 mb-3">Largeur</h6>
+      <hr />
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="layout-width" id="layout-width-fuild" value="fluid"
+          [checked]="width === 'fluid'" (change)="changeWidth('fluid')">
+        <label class="form-check-label" for="layout-width-fuild">Fluide</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="layout-width" id="layout-width-boxed" value="boxed"
+          [checked]="width === 'boxed'" (change)="changeWidth('boxed')">
+        <label class="form-check-label" for="layout-width-boxed">En boîte</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="layout-width" id="layout-width-scrollable" value="scrollable"
+          [checked]="width === 'scrollable'" (change)="changeWidth('scrollable')">
+        <label class="form-check-label" for="layout-width-scrollable">Défilement</label>
+      </div>
+      <div *ngIf="attribute == 'vertical'">
+        <h6 class="mt-4 mb-3">Couleur de la barre latérale</h6>
+        <hr />
+        <div class="form-check sidebar-setting">
+          <input class="form-check-input" type="radio" name="sidebar-color" id="sidebar-color-light" value="light"
+            [checked]="sidebartype === 'light'" (change)="changeSidebartype('light')">
+          <label class="form-check-label" for="sidebar-color-light">Lumière</label>
+        </div>
+        <div class="form-check sidebar-setting">
+          <input class="form-check-input" type="radio" name="sidebar-color" id="sidebar-color-dark" value="dark"
+            [checked]="sidebartype === 'dark'" (change)="changeSidebartype('dark')">
+          <label class="form-check-label" for="sidebar-color-dark">Sombre</label>
+        </div>
+        <div class="form-check sidebar-setting">
+          <input class="form-check-input" type="radio" name="sidebar-color" id="sidebar-color-brand" value="compact"
+            [checked]="sidebartype === 'compact'" (change)="changeSidebartype('compact')">
+          <label class="form-check-label" for="sidebar-color-brand">Compact</label>
+        </div>
+        <div class="form-check sidebar-setting">
+          <input class="form-check-input" type="radio" name="sidebar-color" id="sidebar-color-icon" value="icon"
+            [checked]="sidebartype === 'icon'" (change)="changeSidebartype('icon')">
+          <label class="form-check-label" for="sidebar-color-icon">Icône</label>
+        </div>
+
+      </div>
+
+
+    </div>
+  </ngx-simplebar>
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>

@@ -1,0 +1,246 @@
+<div class="container-fluid">
+    <app-page-title title="Advanced Table" ></app-page-title>
+    <div class="row">
+      <div class="d-flex">
+        <button class="btn btn-success ms-auto mb-2" (click)="openModal(content,this.idServiceEq=null)">Ajouter Service </button>
+      </div>
+      <div class="col-12">
+        <div class="card">
+          
+          <div class="card-body">
+            <h4 class="card-title">ServiceTable</h4>
+            <p class="card-sub-title">
+            </p>
+            <div class="row mb-md-2">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"><label
+                    class="d-inline-flex align-items-center">Show
+                    <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                      [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select> entries</label></div>
+              </div>
+              <!-- Search -->
+               
+              <div class="col-sm-12 col-md-6">
+                
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                    class="d-inline-flex align-items-center">Search:
+                    <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                      aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+              </div>
+              <!-- End search -->
+               
+            </div>
+            <!-- Table -->
+            <div class="table-responsive">
+              <table id="basic-datatable"
+                class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th sortable="nom" (sort)="onSort($event)">Nom</th>
+                    <th sortable="chefEquipe" (sort)="onSort($event)">Chef d'equipe</th>
+                    
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let table of tables$ | async; let i = index">
+                  <tr  class="pointer">
+                    <td align="center"  >
+                      <a class="expand-row" (click)="changeValue(i)">+</a>
+                    </td>
+                    
+                    <td >
+                      <ngb-highlight [result]="table?.nom || 'N/A'" [term]="service.searchTerm"  (click)="serviceEqDetails(table.id)" ></ngb-highlight>
+                    </td>
+                 
+                    <td>
+                      <ngb-highlight [result]="table?.chefEquipe?.nom || 'N/A'" ></ngb-highlight>
+                    </td>
+                    <td>
+                      <div ngbDropdown placement="bottom-left">
+                        <i class="mdi mdi-dots-vertical dropdown-toggle" ngbDropdownToggle></i>
+                        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                          <a class="dropdown-item" href="javascript: void(0);" (click)="openModal(content, table.id)">
+                            <i class="mdi mdi-plus"></i>Modifier
+                        </a>       
+                        <a class="dropdown-item" href="javascript: void(0);" (click)="SuprimerEq(table.id)">
+                          <i class="mdi mdi-account-edit"></i>Supprimer
+                      </a>                     
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                
+                  <tr *ngIf="!hideme[i]" class="sub-table no-bg">
+                    <td align="center"></td>
+                    <td colspan="15" class="p-0">
+                      <table class="table mb-0 table-striped">
+                        <thead class="bg-dark text-white">
+                          <tr>
+                            <th (click)="onSortemp('identifiantUser')">Identifiant</th>
+                            <th (click)="onSortemp('nom')">Nom</th>
+                            <th (click)="onSortemp('prenom')">Prenom</th>
+                            <th (click)="onSortemp('mdp')">Mot de passe</th>
+                            <th (click)="onSortemp('type')">Type</th>
+                            <th (click)="onSortemp('serviceEq')">Poste</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="table?.chefEquipe" (click)="chefdequipeDetails(table.chefEquipe.id)" class="pointer">
+                            <td><strong>{{table.chefEquipe.identifiantUser}}</strong></td>
+                            <td><strong>{{table.chefEquipe.nom}}</strong></td>
+                            <td><strong>{{table.chefEquipe.prenom}}</strong></td>
+                            <td><strong>{{table.chefEquipe.mdp}}</strong></td>
+                            <td><strong>{{table.chefEquipe.type || 'N/A'}}</strong></td>
+                          </tr>
+                          <tr *ngFor="let employee of sortedEmployees(table?.employes || [])" (click)="employeDetails(employee.id)" class="pointer">
+                            <td>{{employee.identifiantUser}}</td>
+                            <td>{{employee.nom}}</td>
+                            <td>{{employee.prenom}}</td>
+                            <td>{{employee.mdp}}</td>
+                            <td>{{employee.type || 'N/A'}}</td>
+                            <td>{{ jobPositions[employee.id] || 'N/A' }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+                
+              </table>
+            </div>
+            <!-- End table -->
+            <div class="row justify-content-md-between align-items-md-center mt-2">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Showing
+                  {{service.startIndex}} to
+                  {{service.endIndex}} of {{service.totalRecords}}
+                  entries
+                </div>
+              </div>
+              <!-- Pagination -->
+              <div class="col-sm-12 col-md-5">
+                <div class="text-md-right float-md-end pagination-rounded">
+                  <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+                  </ngb-pagination>
+                </div>
+              </div>
+              <!-- End Pagination -->
+            </div>
+          </div>
+        </div>
+  
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Open -->
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Service</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+                        (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="SubmitService()">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom service</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="serviceEq.nom" name="nom" placeholder="Enter Name">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="mb-5">
+                        <label for="email" class="form-label">Chef d'equipe : {{this.selectedChef?.nom ? this.selectedChef.nom:'N/A'}} </label>
+                          <br>
+                          <div class="btn-group me-1 mt-2" ngbDropdown>
+                            <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>
+                              {{ selectedChef?.nom || "Select un Chef d'equipe " }} <i class="mdi mdi-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu" ngbDropdownMenu>
+                              
+                              <a class="dropdown-item pointer" (click)="DontselectChef()">Aucun Chef d'equipe</a> <!-- Option "Aucune équipe" -->
+                              <div class="dropdown-divider"></div>
+                              <a *ngFor="let item of Users" class="dropdown-item" (click)="selectChef(item)">{{ item.nom }}</a>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                  
+                  <div class="mb-3">
+                    <div class="card">
+                      <div class="card-body">
+                          
+                          <h4 class="card-title">Employe</h4>
+                          <div class="card-title-desc">
+                            <div class="btn-group me-1 mt-2" ngbDropdown>
+                              <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>
+                                Ajouter un Employe  <i class="mdi mdi-chevron-down"></i>
+                              </button>
+                              <div class="dropdown-menu" ngbDropdownMenu>
+                                
+                                <a class="dropdown-item pointer" (click)="DontselectChef()">Aucun Employe</a> <!-- Option "Aucune équipe" -->
+                                <div class="dropdown-divider"></div>
+                                <a *ngFor="let item of Employees" class="dropdown-item" (click)="selectEmpl(item)">{{ item.nom }}</a>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        <div class="table-responsive">
+                          
+                          <table class="table mb-0">
+                            <thead>
+                              <tr>
+                                <th>Idantifiant</th>
+                                <th>Nom</th>
+                                <th>Poste</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let employee of TableEmployees">
+                                <td>{{employee.identifiantUser}}</td>
+                                <td>{{employee.nom}} {{employee.prenom}}</td>
+                                <td>{{employee.poste?.nom || "N/A" }}</td>
+                                
+                                <td>
+                                  <div class="button-items">
+                                   
+                                    
+                                    <button type="button" class="btn btn-danger" (click)="removeEmployee(employee.id,employee)">
+                                      <i class="bx bx-trash font-size-16 align-items-center-2"></i>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                
+                            </tbody>
+                          </table>
+                        </div>
+                
+                      </div>
+                    </div>
+                  </div>
+              </div>
+                
+            </div>
+            
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+    
+ 
