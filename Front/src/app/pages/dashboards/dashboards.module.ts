@@ -29,13 +29,14 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import { CalandarDatailComponent } from './employe/calandar-datail/calandar-datail.component';
+import { ProfileComponent } from './admin/profile/profile.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
   bootstrapPlugin
 ]);
 @NgModule({
-  declarations: [   ServiceEqComponent, EmployeComponent,AdvancedSortableDirective, AddEmployeComponent, EmployeDetailComponent, ProfilComponent, ServiceEqDetailComponent, PosteComponent, PosteDetailComponent,CalendarComponent, CalandarDatailComponent],
+  declarations: [   ServiceEqComponent, EmployeComponent,AdvancedSortableDirective, AddEmployeComponent, EmployeDetailComponent, ProfilComponent, ServiceEqDetailComponent, PosteComponent, PosteDetailComponent,CalendarComponent, CalandarDatailComponent, ProfileComponent],
   imports: [
     CommonModule,
     FormsModule,

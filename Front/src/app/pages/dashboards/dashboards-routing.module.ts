@@ -11,6 +11,7 @@ import { PosteDetailComponent } from './admin/poste/poste-detail/poste-detail.co
 import { CalendarComponent } from './admin/components/employe/formation/calendar/calendar.component';
 import { CalandarDatailComponent } from './employe/calandar-datail/calandar-datail.component';
 import { RoleGuard } from 'src/app/core/services/RoleGuard';
+import { ProfileComponent } from './admin/profile/profile.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'addempl/:id', component: AddEmployeComponent },
       { path: 'poste', component: PosteComponent },
       { path: 'poste/:id', component: PosteDetailComponent },
+      { path: 'profile/:id', component: ProfileComponent },
       { path: '', redirectTo: 'serviceEq', pathMatch: 'full' } // Redirect to default route if none specified
     ]
   },

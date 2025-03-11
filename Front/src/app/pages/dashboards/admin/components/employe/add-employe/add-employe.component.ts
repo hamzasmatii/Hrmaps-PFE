@@ -54,7 +54,7 @@ export class AddEmployeComponent implements OnInit {
   isEditMode: boolean = false;
   id:number;
   UserType = UserType;
-  userTypes: UserType[] = [ UserType.CHEF_EQUIPE, UserType.EMPLOYE];
+  userTypes: UserType[] = [ UserType.CHEF_EQUIPE, UserType.EMPLOYE, UserType.ADMIN];
 
 
 
@@ -238,6 +238,31 @@ constructor(public formBuilder: FormBuilder, private modalService: NgbModal,priv
         if(this.selectedServiceName.id){
           this.user.serviceEq = this.selectedServiceName;
         }
+        
+        
+        this.userService.addUser(this.user).subscribe((data) => {
+
+          this.addORupdatePosteforUser(data);
+          this.router.navigate(['/dashboard/admin/employe']);
+        });
+
+      }
+
+
+    }else if(this.user.type===UserType.ADMIN){
+      if (this.id){//update employe
+        
+        console.log(this.user)
+        
+        this.userService.updateUser(this.id, this.user).subscribe((data) => {
+          this.user=data
+         this.router.navigate(['/dashboard/admin/employe']);
+        }, error => console.log(error));
+        this.addORupdatePosteforUser(this.user);
+        
+        
+
+      }else{//add employe
         
         
         this.userService.addUser(this.user).subscribe((data) => {

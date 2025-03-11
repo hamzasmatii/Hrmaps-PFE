@@ -118,6 +118,10 @@ export class EmployeComponent implements OnInit {
     this.router.navigate(['/chefdequipe/profile/', id]);
   }
 
+  adminDetails(id: number){
+    this.router.navigate(['/admin/profile/', id]);
+  }
+
   sortColumn(column: string) {
     this.sortDirection[column] = !this.sortDirection[column];
     const direction = this.sortDirection[column] ? 1 : -1;

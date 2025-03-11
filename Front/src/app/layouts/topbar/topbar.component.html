@@ -34,8 +34,6 @@
           <span class="bx bx-search-alt"></span>
         </div>
       </form>
-
-
     </div>
 
     <div class="d-flex">
@@ -59,22 +57,55 @@
         </div>
       </div>
 
-
-
-
-
       <div class="dropdown d-none d-lg-inline-block ms-1">
         <button type="button" class="btn header-item noti-icon" data-toggle="fullscreen" (click)="fullscreen()">
           <i class="bx bx-fullscreen"></i>
         </button>
       </div>
 
-
+      <!-- Notification Dropdown -->
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown" ngbDropdownToggle (click)="markAllAsRead()" >
+          <i class="bx bx-bell bx-tada"></i>
+          <span class="badge bg-danger rounded-pill">{{unreadNotificationsCount}}</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" ngbDropdownMenu aria-labelledby="page-header-notifications-dropdown">
+          <div class="p-3">
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="m-0"> Notifications </h6>
+              </div>
+            </div>
+          </div>
+          <div data-simplebar style="max-height: 230px; overflow-x: hidden;">
+            <a  class="text-reset notification-item" *ngFor="let notification of notifications" [routerLink]="[notification.link]">
+              <div class="d-flex">
+                <div class="avatar-xs me-3">
+                    <span class="avatar-title rounded-circle font-size-16 bg-success" *ngIf="notification.read; else notRead">
+                    <i class="bx bx-check-circle"></i>
+                    </span>
+                    <ng-template #notRead>
+                    <span class="avatar-title rounded-circle font-size-16 bg-danger">
+                      <i class="bx bx-error"></i>
+                    </span>
+                    </ng-template>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1">{{ notification.message }}</h6>
+                  <div class="font-size-12 text-muted">
+                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> {{ notification.date | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item" ngbDropdownToggle id="page-header-user-dropdown">
           <img class="rounded-circle header-profile-user" src="assets/images/logo.svg" alt="Header Avatar">
-          <span class="d-none d-xl-inline-block ms-1">Henry</span>
+          <span class="d-none d-xl-inline-block ms-1">{{ userName }}</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
@@ -90,7 +121,6 @@
           <i class="bx bx-cog bx-spin"></i>
         </button>
       </div>
-
     </div>
   </div>
 </header>

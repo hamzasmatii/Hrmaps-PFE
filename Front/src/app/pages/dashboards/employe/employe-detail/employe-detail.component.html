@@ -35,7 +35,7 @@
   
                   <div class="row">
                     <div class="col-6">
-                      <h5 class="font-size-15">{{user?.notePoste||'N/A'}}</h5>
+                        <h5 class="font-size-15">{{noteposte?.toFixed(2) || 'N/A'}}/5</h5>
                       <p class="text-muted mb-0">Note Poste</p>
                     </div>
                     <div class="col-6">
@@ -178,7 +178,7 @@
       <a >
         Note: 
         <span [ngClass]="{'danger  class=badge badge-soft-primary font-size-14 m-1': !this.noteCompetenceStat}">
-          ({{ this.noteCompetenceStat || 'N/A' }})
+          ({{ this.noteCompetenceStat || 'N/A' }}/5)
         </span>
       </a>
         <br>
@@ -234,7 +234,7 @@
                   <a >
                     Note: 
                     <span [ngClass]="{'danger  class=badge badge-soft-primary font-size-14 m-1': !this.noteCompetence}">
-                      ({{ this.noteCompetence || 'N/A' }})
+                      ({{ this.noteCompetence || 'N/A' }}/5)
                     </span>
                   </a>
                     <br>

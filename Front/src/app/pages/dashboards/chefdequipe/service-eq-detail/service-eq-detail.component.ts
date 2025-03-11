@@ -43,7 +43,7 @@ export class ServiceEqDetailComponent implements OnInit {
   }
 
   LoadService(id:number){
-    this.serviceEqservice.getServiceEqById(id).subscribe((res:ServiceEq)=>{
+    this.serviceEqservice.getServiceEqByChefId(id).subscribe((res:ServiceEq)=>{
       this.serviceEq=res;
       console.log(this.serviceEq)
       if(this.serviceEq.employes.length > 0){

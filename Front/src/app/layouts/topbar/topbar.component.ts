@@ -1,10 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from 'src/app/core/services/User.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { User } from 'src/app/core/models/User';
+import { Notification } from 'src/app/core/models/Notification';
 
 @Component({
   selector: 'app-topbar',
@@ -22,12 +25,18 @@ export class TopbarComponent implements OnInit {
   flagvalue;
   countryName;
   valueset;
+  userId: number;
+  userName: string;
+  notifications: Notification[] = [];
+
+  
 
   constructor(@Inject(DOCUMENT) private document: any, private router: Router,
               public languageService: LanguageService,
               public translate: TranslateService,
               public _cookiesService: CookieService,
-              ) {
+              private userService: UserService,
+              private notificationService: NotificationService) {
   }
 
   listLang = [
@@ -55,6 +64,24 @@ export class TopbarComponent implements OnInit {
     } else {
       this.flagvalue = val.map(element => element.flag);
     }
+
+    // Get the user ID from the UserService
+    this.userId = this.userService.getIduser();
+
+    // Get the user's name from the UserService
+    this.userService.getUserById(this.userId).subscribe((user: User) => {
+      this.userName = user.nom; // Assuming 'nom' is the user's name
+    });
+
+    // Get notifications from the NotificationService
+    this.notificationService.getNotificationsByUserId(this.userId).subscribe((notifications: Notification[]) => {
+      this.notifications = notifications.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      console.log(this.notifications);
+    });
+  }
+
+  get unreadNotificationsCount(): number {
+    return this.notifications.filter(notification => !notification.read).length;
   }
 
   setLanguage(text: string, lang: string, flag: string) {
@@ -83,12 +110,8 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    //this.token.signOut()
     this.router.navigate(['/account/login']);
   }
-
-
-  
 
   /**
    * Fullscreen method
@@ -124,5 +147,19 @@ export class TopbarComponent implements OnInit {
         this.document.msExitFullscreen();
       }
     }
+  }
+
+  /**
+   * Mark all notifications as read
+   */
+  markAllAsRead() {
+    
+      this.notifications.forEach(notification =>{
+        this.notificationService.markAsRead(notification.id).subscribe(() => {
+          notification.read = true;
+        });
+      })
+    ;
+    
   }
 }

@@ -102,6 +102,44 @@
                         </ul>
                       </td>
                     </tr>
+                    <!-- For Admin -->
+                    <tr *ngIf="user.type == UserType.ADMIN" (click)="adminDetails(user.id)">
+                      <td>
+                        <div class="avatar-xs">
+                          <span class="avatar-title rounded-circle">
+                            {{ user.nom ? user.nom.charAt(0) : '' }}
+                          </span>
+                        </div>
+                      </td>
+                      <td>{{ user.identifiantUser }}</td>
+                      <td>
+                        <div>
+                          <a href="javascript: void(0);" class="badge badge-soft-primary font-size-11 m-1">{{ user.type ? 'RH' : 'N/A' }}</a>
+                        </div>
+                      </td>
+                      <td>
+                        <h5 class="font-size-14 mb-1">
+                          <a href="javascript: void(0);" class="text-dark">{{ user.nom }} {{ user.prenom }}</a>
+                        </h5>
+                      </td>
+                      <td>Ressource Humaine</td>
+                      <td>{{ user.mdp }}</td>
+                      <td>
+                        <div>
+                          <a href="javascript: void(0);" class="badge badge-soft-primary font-size-11 m-1"> RH </a>
+                        </div>
+                      </td>
+                      <td>
+                        <ul class="list-inline font-size-20 contact-links mb-0">
+                          <li class="list-inline-item px-2">
+                            <button type="button" class="btn btn-success" (click)="editEmploye(user); $event.stopPropagation();">Modifier</button>
+                          </li>
+                          <li class="list-inline-item px-2">
+                            <button type="button" class="btn btn-danger" (click)="deleteEmploye(user.id); $event.stopPropagation();">Supprimer</button>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
                   </ng-container>
                 </tbody>
                 

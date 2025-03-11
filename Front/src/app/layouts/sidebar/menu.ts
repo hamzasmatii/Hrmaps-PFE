@@ -38,6 +38,11 @@ export const MENU: MenuItem[] = [
                 label: 'FORMATION',
                 link: '/dashboard/admin/calendrier',
                 parentId: 2
+            },{
+                id: 6,
+                label: 'Profile',
+                link: '/dashboard/admin/profile/{{idUser}}',
+                parentId: 2
             },
             
         ]

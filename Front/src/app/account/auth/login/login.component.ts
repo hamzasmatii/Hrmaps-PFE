@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 
           // Redirect based on user role
           if (role === 'ADMIN') {
-            this.route.navigate(['/dashboard/admin/serviceEq']);
+            this.route.navigate(['/dashboard/admin/profile/' + idUser]);
           } else if (role === 'CHEF_EQUIPE') {
             this.route.navigate(['/dashboard/chefdequipe/profile/' + idUser]);
           } else if (role === 'EMPLOYE') {

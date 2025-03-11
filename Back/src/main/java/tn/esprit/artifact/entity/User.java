@@ -57,6 +57,10 @@ public class User {
     @JsonIgnore
     private Set<Formation> formation ;
 
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
+    private Set<Notification> notifications;
+
 
 
 

@@ -199,7 +199,7 @@ public class UserServiceIMPL implements IUserService {
 
                 // Accumulate the notes for the competencies
                 Double note = evaluation.getNote();
-                if (note != null) {
+                if (note != null && note != 0) {
                     totalNotes += note;
                     noteCount++;
                 }

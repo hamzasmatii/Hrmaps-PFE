@@ -12,7 +12,9 @@
         <div class="card-body">
           <div class="btn-group me-1 mt-2" ngbDropdown>
             <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle>
-              {{ user?.type || 'Select Type User' }} <i class="mdi mdi-chevron-down"></i>
+              <span *ngIf="user?.type === 'ADMIN'; else notAdmin">RH</span>
+              <ng-template #notAdmin>{{ user?.type || 'Select Type User' }}</ng-template>
+              <i class="mdi mdi-chevron-down"></i>
             </button>
             <div class="dropdown-menu" ngbDropdownMenu>
                 
@@ -97,7 +99,7 @@
               </div>
             
             
-            <div class="row">
+            <div class="row" *ngIf="user.type !== UserType.ADMIN">
               <div class="col-lg-4">
                 <div class="card border border-primary">
                   <div class="card-header bg-transparent border-primary">

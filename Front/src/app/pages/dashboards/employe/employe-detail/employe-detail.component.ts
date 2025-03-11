@@ -11,6 +11,8 @@ import { JobPosition } from 'src/app/core/models/JobPosition';
 import { Evaluation } from 'src/app/core/models/Evaluation';
 import { EvaluationService } from 'src/app/core/services/Evaluation.service';
 import { EvaluationType } from 'src/app/core/models/EvaluationType';
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { Notification } from 'src/app/core/models/Notification';
 
 
 @Component({
@@ -40,6 +42,7 @@ export class EmployeDetailComponent implements OnInit {
   typeEvalu=EvaluationType;
   noteCompetence:number;
   noteCompetenceStat:number;
+  noteposte:number=0;
 
   role:string=this.userService.getRole()
 
@@ -47,7 +50,8 @@ export class EmployeDetailComponent implements OnInit {
   
 
   constructor(private userService: UserService,private router: Router,private route: ActivatedRoute,
-    private competanceservice:CompetenceService, private modalService: NgbModal, private evaluationService: EvaluationService) { }
+    private competanceservice:CompetenceService, private modalService: NgbModal, private evaluationService: EvaluationService,
+    private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.idUser = +this.route.snapshot.params['id'];
@@ -60,7 +64,9 @@ export class EmployeDetailComponent implements OnInit {
     this.userService.getUserById(id).subscribe((res:User) => {
       this.user = res;
       if(this.user){
-      
+      if(this.user.notePoste !=0){
+        this.noteposte=this.user.notePoste;
+      }
       this.userService.getServiceEqByUserId(this.user.id).subscribe((serviceEq: ServiceEq) => {
         this.user.serviceEq = serviceEq; // Associate serviceEq with the user
         this.selectedServiceName =this.user.serviceEq;
@@ -125,6 +131,8 @@ export class EmployeDetailComponent implements OnInit {
         this.selectCompetence(this.selectedCompetance);
       this.selectedCompetanceStat=this.selectedCompetance;
       this.selectCompetenceStat(this.selectedCompetanceStat);
+      this.createNotification('Update', this.evaluation);
+      this.refreshNotePoste();
       })
 
     }else{
@@ -138,6 +146,8 @@ export class EmployeDetailComponent implements OnInit {
       this.selectCompetence(this.selectedCompetance);
       this.selectedCompetanceStat=this.selectedCompetance;
       this.selectCompetenceStat(this.selectedCompetanceStat);
+      this.createNotification('Add', evalu);
+      this.refreshNotePoste();
       /* this.getevaluationcompetenceUser(this.selectedCompetance)   
       this.getevaluationcompetenceUserCroissant(this.selectedCompetanceStat);    */
     })
@@ -159,6 +169,7 @@ export class EmployeDetailComponent implements OnInit {
     this.selectedCompetanceStat = compet; // Update the selected service name
     console.log(compet)
     this.getevaluationcompetenceUserCroissant(compet);
+    this.refreshNotePoste();
     this.evaluationService.calculateAndAssignAverageNote(this.idUser,compet.id).subscribe((data:number)=>{
       this.noteCompetenceStat=parseFloat(data.toFixed(2));
     })
@@ -177,6 +188,7 @@ export class EmployeDetailComponent implements OnInit {
         
       });
       this._fetchData()
+      this.refreshNotePoste();
     })
     console.log(this.evaluationForuserStat)
    
@@ -199,11 +211,37 @@ export class EmployeDetailComponent implements OnInit {
       this.selectCompetence(this.selectedCompetance);
       this.selectedCompetanceStat=this.selectedCompetance;
       this.selectCompetenceStat(this.selectedCompetanceStat);
-
+      this.createNotification('Delete', this.evaluation);
+      this.refreshNotePoste();
     })
+    
   }
 
+  createNotification(action: string, evaluation: Evaluation) {
+    this.refreshNotePoste();
+    const notification: Notification = {
+      message: `${action} : Evaluation ${evaluation.eval} for competence ${evaluation.competence.nom} on ${new Date().toLocaleDateString()}`,
+      read: false,
+      link: `/dashboard/employe/profile/${this.idUser}`,
+      users: [{ id: this.idUser }]
+    };
+    this.notificationService.createNotification(notification).subscribe(
+      (notificationResponse: Notification) => {
+        console.log('Notification created successfully:', notificationResponse);
+      },
+      (notificationError) => {
+        console.error('Error creating notification:', notificationError);
+      }
+    );
+  }
 
+  refreshNotePoste() {
+    this.userService.getUserById(this.idUser).subscribe((res: User) => {
+      if(this.user.notePoste !=0){
+        this.noteposte=this.user.notePoste;
+      }
+    });
+  }
 
   private _fetchData() {
     const dateEvaluation: string[] = [];

@@ -18,6 +18,7 @@ export class User {
     evaluations?:Evaluation;
     notePoste?:number;
     formation?:Formation[];
+    notifications?: Notification[];
 
 
 
