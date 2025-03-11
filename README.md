@@ -28,7 +28,7 @@ Hrmaps-PFE/
 ## 🚀 Installation et Exécution  
 ### 📌 Pré-requis  
 - **Node.js** (v18+) & **Angular CLI**  
-- **Java 17** & **Spring Boot**  
+- **Java 21** & **Spring Boot**  
 - **MySQL**  
 
 ---
