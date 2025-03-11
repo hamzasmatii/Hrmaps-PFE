@@ -47,10 +47,12 @@ CREATE DATABASE HrMaps;
 #### 🔹 3. Configurer `application.properties`  
 Modifier `src/main/resources/application.properties` :  
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/HrMaps
+spring.datasource.url=jdbc:mysql://localhost:3306/HrMaps?createDatabaseIfNotExist=true
 spring.datasource.username=root
 spring.datasource.password=ton_mdp
+spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=update
+server.port=8085
 ```
 #### 🔹 4. Lancer le backend  
 ```bash
